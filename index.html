@@ -2,45 +2,70 @@
 <html xmlns = "http://www.w3.org/1999/xhtml">
    
 <head>
+    
+    <script src="jquery-4.0.0.js"></script>
+    
 
-   
 
     <meta charset="UTF-8" />
     <title>الصحن الذهبي - الصفحة الرئيسية</title>
 
-  
+
+
     <meta name="keywords" content="مطعم مشويات، وجبات سريعة، أفضل مطعم في سوريا" />
-    
-   
+
+
     <meta name="description" content="استمتع بأشهى المأكولات في مطعمنا، نقدم قائمة متنوعة من الأطباق الطازجة يومياً." />
-    <style>table { width: 100%; border-collapse: collapse; } th, td { border: 1px solid black; padding: 10px; text-align: center; }</style>
-    <link rel="stylesheet" href="style.css">
-    <script type="text/javascript" > alert("Welcome to the Student Information page!"); </script>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 10px;
+            text-align: center;
+        }
+    </style>
+    <link rel="stylesheet" href="style.css"> 
+    <script type="text/javascript">alert("Welcome to the Student Information page!");</script>
 </head>
 <body>
 
-<h1>Student Information</h1>
+    <h1>Student Information</h1>
 
-<table  cell padding="10" cellspacing="0"> 
-    <caption>  <b>Student Information</b></caption>
-    <tr>
-        <th>Name</th>
-        <th>ID</th>
-        <th>Class</th>
-    </tr>
-    <tr>
-        <td>Mohamad Alshamali <br> محمد الشمالي</td>
-        <td>323483</td>
-        <td>C7</td>
-    </tr>
-    
-</table>
+    <table cell padding="10" cellspacing="0">
+        <caption>  <b>Student Information</b></caption>
+        <tr>
+            <th>Name</th>
+            <th>ID</th>
+            <th>Class</th>
+        </tr>
+        <tr>
+            <td>Mohamad Alshamali <br> محمد الشمالي</td>
+            <td>323483</td>
+            <td>C7</td>
+        </tr>
 
-<nav>
-    <a href="index.html">Home</a> |
-    <a href="AboutUs.html">About Us</a> |
-    <a href="Meals.html">وجبات الصحن الذهبي</a>
-</nav>
+    </table>
+    <script type="text/javascript" language="javascript">
+        $(document).ready(function () {
+            $("p").attr("style", "color:blue; font-size:18px;");
+            
+                
+                    
+        });
+           
+    </script>
+    <p>Welcome to the Student Information page! Here you can find details about students, including their names, IDs, and classes. This information is essential for administrative purposes and helps in maintaining accurate records.</p>
+
+    <nav>
+        <a href="index.html">Home</a> |
+        <a href="AboutUs.html">About Us</a> |
+        <a href="Meals.html">وجبات الصحن الذهبي</a>
+    </nav>
+
 
 </body>
 </html>

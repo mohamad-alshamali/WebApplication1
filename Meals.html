@@ -1,169 +1,203 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-    <link rel="stylesheet" href="style.css">
-    
     <meta charset="UTF-8">
     <title>قائمة الوجبات الخمس</title>
-</head>
+
+    <!-- استدعاء المكتبات -->
+    <!-- ملاحظة: تأكد أن ملف jquery موجود بنفس المسار أو استخدم رابط CDN -->
     <script src="https://jquery.com"></script>
-    <script>
-        jQuery(document).ready(function() {
-            alert("مرحباً بك في صفحة الوجبات المتنوعة!");
-        });
-    </script>
 
     <style>
         table {
             width: 100%;
             border-collapse: collapse;
-            direction: rtl; /* لضمان الاتجاه العربي */
+            direction: rtl;
         }
+
         th, td {
             border: 1px solid #ccc;
             padding: 12px;
             text-align: center;
         }
-        th { background-color: #f4f4f4; }
+
+        th {
+            background-color: #f4f4f4;
+        }
+
         .details {
-            display: none; /* إخفاء التفاصيل افتراضياً */
+            display: none;
             background-color: #f9f9f9;
             text-align: right;
         }
-        img { width: 150px; border-radius: 8px; }
-        .btn-submit { padding: 10px 20px; font-size: 16px; cursor: pointer; }
+
+        img {
+            width: 150px;
+            border-radius: 8px;
+        }
+
+        .btn-submit {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        #myForm {
+            direction: rtl;
+            max-width: 400px;
+            margin: 20px auto;
+        }
     </style>
+
+    <script>
+        $(document).ready(function () {
+            alert("تصفح قائمتنا المتنوعة من الوجبات الشهية واختر ما يناسبك!");
+        });
+
+        function toggleDetails(id) {
+            const row = document.getElementById("details-" + id);
+            if (row.style.display === "none" || row.style.display === "") {
+                row.style.display = "table-row";
+            } else {
+                row.style.display = "none";
+            }
+        }
+
+        function fillform() {
+            var form = document.getElementById("myForm");
+            form.style.display = (form.style.display === "none" || form.style.display === "") ? "block" : "none";
+        }
+
+        function validateForm() {
+            // جلب القيم باستخدام الـ ID (تمت إضافة الـ IDs في الـ HTML بالأسفل)
+            const name = document.getElementById("fullName").value.trim();
+            const bank = document.getElementById("bankAccount").value.trim();
+            const mobile = document.getElementById("mobile").value.trim();
+
+            const nameRegex = /^[a-zA-Z\u0600-\u06FF\s]+$/;
+            if (!nameRegex.test(name) || name.length < 3) {
+                alert("يرجى إدخال اسم كامل صحيح (حروف فقط، 3 أحرف على الأقل).");
+                return false;
+            }
+
+            const bankRegex = /^\d{6}$/;
+            if (!bankRegex.test(bank)) {
+                alert("رقم الحساب البنكي يجب أن يتكون من 6 أرقام فقط.");
+                return false;
+            }
+
+            const mobileRegex = /^09(3|4|5|6|8|9)\d{7}$/;
+            if (!mobileRegex.test(mobile)) {
+                alert("رقم الموبايل غير صحيح! يجب أن يبدأ بـ 09 ويتبع أرقام سيرييتل أو MTN.");
+                return false;
+            }
+
+            alert("تم التحقق بنجاح! جاري إرسال الطلب...");
+            return true;
+        }
+    </script>
+</head>
 
 <body>
 
-<h2 style="text-align: center;">قائمة الوجبات المختارة</h2>
+    <h2 style="text-align: center;">قائمة الوجبات المختارة</h2>
 
-<form action="وجبات">
-    <table>
-        <tr>
-            <th>الرمز</th>
-            <th>العنوان</th>
-            <th>السعر</th>
-            <th>إظهار التفاصيل</th>
-            <th>اختيار الوجبة</th>
-        </tr>
+    <form>
+        <table>
+            <tr>
+                <th>الرمز</th>
+                <th>العنوان</th>
+                <th>السعر</th>
+                <th>إظهار التفاصيل</th>
+                <th>اختيار الوجبة</th>
+            </tr>
+            <!-- الوجبات -->
+            <tr>
+                <td>SF-001</td>
+                <td>وجبة سمك مشوي</td>
+                <td>11000 ل.س</td>
+                <td><input type="checkbox" onclick="toggleDetails(1)"></td>
+                <td><input type="checkbox" name="meal1"></td>
+            </tr>
+            <tr id="details-1" class="details">
+                <td colspan="5">
+                    <b>المطبخ:</b> المصري | <b>التصنيف:</b> بحريات<br>
+                    <img src="images/3.png" alt="سمك">
+                    <ul><li>4 سمكات بوري</li><li>ثوم وزيت زيتون</li></ul>
+                </td>
+            </tr>
+            <!-- كررنا نفس الهيكل لبقية الوجبات كما في الكود الأصلي -->
+            <tr>
+                <td>SH-002</td>
+                <td>شاورما دجاج</td>
+                <td>7000 ل.س</td>
+                <td><input type="checkbox" onclick="toggleDetails(2)"></td>
+                <td><input type="checkbox" name="meal2"></td>
+            </tr>
+            <tr id="details-2" class="details"><td colspan="5"><img src="images/1.png" alt="شاورما"><b>المطبخ:</b> شامي</td></tr>
 
-        <!-- الوجبة 1 -->
-        <tr>
-            <td>SF-001</td>
-            <td>وجبة سمك مشوي</td>
-            <td>11000 ل.س</td>
-            <td><input type="checkbox" onclick="toggleDetails(1)"></td>
-            <td><input type="checkbox" name="meal1"></td>
-        </tr>
-        <tr id="details-1" class="details">
-            <td colspan="5">
-               
-                <b>المطبخ:</b> المصري | <b>التصنيف:</b> بحريات<br>
-                 <img src="images/3.png" alt="سمك">
-                <ul><li>4 سمكات بوري</li><li>ثوم وزيت زيتون</li></ul>
-            </td>
-        </tr>
+            <tr>
+                <td>BR-003</td>
+                <td>برغر لحم ملكي</td>
+                <td>9500 ل.س</td>
+                <td><input type="checkbox" onclick="toggleDetails(3)"></td>
+                <td><input type="checkbox" name="meal3"></td>
+            </tr>
+            <tr id="details-3" class="details"><td colspan="5"><img src="images/2.png" alt="برغر"><b>المطبخ:</b> أمريكي</td></tr>
+            <!-- الوجبة 4 -->
+            <tr>
+                <td>PZ-004</td>
+                <td>بيتزا مارغريتا</td>
+                <td>8500 ل.س</td>
+                <td><input type="checkbox" onclick="toggleDetails(4)"></td>
+                <td><input type="checkbox" name="meal4"></td>
+            </tr>
+            <tr id="details-4" class="details">
+                <td colspan="5">
+                    <img src="images/4.png" alt="بيتزا">
+                    <b>المطبخ:</b> إيطالي | <b>التصنيف:</b> معجنات<br>
+                    <p>صلصة طماطم إيطالية، جبنة موزاريلا طازجة، ريحان.</p>
+                </td>
+            </tr>
 
-        <!-- الوجبة 2 -->
-        <tr>
-            <td>SH-002</td>
-            <td>شاورما دجاج</td>
-            <td>7000 ل.س</td>
-            <td><input type="checkbox" onclick="toggleDetails(2)"></td>
-            <td><input type="checkbox" name="meal2"></td>
-        </tr>
-        <tr id="details-2" class="details">
-            <td colspan="5">
-                <img src="images/1.png" alt="سمك">
-                <b>المطبخ:</b> شامي | <b>التصنيف:</b> وجبات سريعة<br>
-                <p>صدر دجاج متبل، كريم ثوم، ومخلل خيار.</p>
-            </td>
-        </tr>
+            <!-- الوجبة 5 -->
+            <tr>
+                <td>KB-005</td>
+                <td>كباب حلبي</td>
+                <td>15000 ل.س</td>
+                <td><input type="checkbox" onclick="toggleDetails(5)"></td>
+                <td><input type="checkbox" name="meal5"></td>
+            </tr>
+            <tr id="details-5" class="details">
+                <td colspan="5">
+                    <img src="images/5.png" alt="كباب حلبي">
+                    <b>المطبخ:</b> سوري | <b>التصنيف:</b> مشويات<br>
+                    <p>لحم غنم بلدي، بقدونس، يقدم مع الخضروات المشوية.</p>
+                </td>
+            </tr>
+        </table>
+        <br>
+        <div style="text-align: center;">
+            <input type="button" value="إتمام الطلب" class="btn-submit" onclick="fillform()">
+        </div>
+    </form>
 
-        <!-- الوجبة 3 -->
-        <tr>
-            <td>BR-003</td>
-            <td>برغر لحم ملكي</td>
-            <td>9500 ل.س</td>
-            <td><input type="checkbox" onclick="toggleDetails(3)"></td>
-            <td><input type="checkbox" name="meal3"></td>
-        </tr>
-        <tr id="details-3" class="details">
-            <td colspan="5">
-                 <img src="images/2.png" alt="برغر">
-                <b>المطبخ:</b> أمريكي | <b>التصنيف:</b> برغر<br>
-                <p>قطعة لحم 200 غرام، جبنة شيدر، بصل مكرمل.</p>
-            </td>
-        </tr>
+    <!-- نموذج إرسال البيانات مع استدعاء دالة التحقق -->
+    <form action="#" method="get" id="myForm" onsubmit="return validateForm()" style="display: none; padding: 20px; border: 1px solid #ccc; margin-top: 20px;">
+        <label>الاسم الكامل:</label>
+        <input type="text" id="fullName" size="20" required><br><br>
 
-        <!-- الوجبة 4 -->
-        <tr>
-            <td>PZ-004</td>
-            <td>بيتزا مارغريتا</td>
-            <td>8500 ل.س</td>
-            <td><input type="checkbox" onclick="toggleDetails(4)"></td>
-            <td><input type="checkbox" name="meal4"></td>
-        </tr>
-        <tr id="details-4" class="details">
-            <td colspan="5">
-                 <img src="images/4.png" alt="بيتزا">
-                <b>المطبخ:</b> إيطالي | <b>التصنيف:</b> معجنات<br>
-                <p>صلصة طماطم إيطالية، جبنة موزاريلا طازجة، ريحان.</p>
-            </td>
-        </tr>
+        <label>الحساب البنكي:</label>
+        <input type="text" id="bankAccount" name="bank_account_number" required><br><br>
 
-        <!-- الوجبة 5 -->
-        <tr>
-            <td>KB-005</td>
-            <td>كباب حلبي</td>
-            <td>15000 ل.س</td>
-            <td><input type="checkbox" onclick="toggleDetails(5)"></td>
-            <td><input type="checkbox" name="meal5"></td>
-        </tr>
-        <tr id="details-5" class="details">
-            <td colspan="5">
-                 <img src="images/5.png" alt="كباب حلبي">
-                <b>المطبخ:</b> سوري | <b>التصنيف:</b> مشويات<br>
-                <p>لحم غنم بلدي، بقدونس، يقدم مع الخضروات المشوية.</p>
-            </td>
-        </tr>
+        <label>تاريخ الطلب:</label>
+        <input type="date" required><br><br>
 
-    </table>
-    <br>
-    <div style="text-align: center;">
-        <input type="submit" value="إتمام الطلب" class="btn-submit" onclick="fillform()">
-    </div>
-</form>
+        <label>رقم الموبايل:</label>
+        <input type="text" id="mobile" required><br><br>
 
-<script>
-function toggleDetails(id) {
-    const row = document.getElementById("details-" + id);
-    if (row.style.display === "none" || row.style.display === "") {
-        row.style.display = "table-row";
-    } else {
-        row.style.display = "none";
-    }
-}
-</script>
-<form action="" method="get" id="myForm" style="display: none;">  <label>الاسم الكامل: &nbsp &nbsp &nbsp &nbsp</label> <input type="text"  size="20">  <br><br>
-        <label>رقم الحساب البنكي:</label> <input type="number" name ="bank acount number" maxlength="6"><br><br>
-        <label> تاريخ الطلب: &nbsp &nbsp &nbsp &nbsp</label> <input type="date"  size="20"><br><br>
-         <label> رقم الموبايل :&nbsp &nbsp &nbsp &nbsp</label> <input type="number"  size="20" length="10"><br><br>
-        
-         </form>
-         <script>
-function fillform() {
-    var form = document.getElementById("myForm");
-    
-    // إذا كان مخفي، أظهره. وإذا كان ظاهراً، اخفه (تبديل)
-    if (form.style.display === "none") {
-        form.style.display = "block";
-    } else {
-        form.style.display = "none";
-    }
-}
-</script
+        <input type="submit" value="إرسال البيانات">
+    </form>
 
 </body>
 </html>
