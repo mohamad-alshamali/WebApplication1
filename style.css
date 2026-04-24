@@ -9,3 +9,49 @@ table {
     width: 100%;
     border-collapse: collapse;
 }
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f4f4; /* Œ·›Ì… Â«œ∆… »œ· «·’Ê—… «·›«—€… */
+    text-align: center;
+    padding: 50px;
+}
+
+.container {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    display: inline-block;
+    max-width: 500px;
+}
+
+h1 {
+    color: #d9534f;
+}
+
+.contact-info {
+    margin-top: 20px;
+    font-size: 1.2em;
+}
+
+    .contact-info a {
+        margin: 0 10px;
+        transition: 0.3s;
+    }
+
+        .contact-info a:hover {
+            color: #d9534f;
+        }
+
+.back-btn {
+    display: inline-block;
+    margin-top: 30px;
+    padding: 10px 20px;
+    background-color: #333;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+

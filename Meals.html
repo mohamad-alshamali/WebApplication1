@@ -8,6 +8,20 @@
     <!-- ملاحظة: تأكد أن ملف jquery موجود بنفس المسار أو استخدم رابط CDN -->
     <script src="https://jquery.com"></script>
     <style>
+        /* تنسيق الحاوية */
+        .results-container div {
+            margin-bottom: 10px; /* مسافة بين الأسطر */
+            display: flex; /* تجعل العناصر تصطف بجانب بعضها */
+            align-items: center; /* موازنة النصوص مع الصناديق عمودياً */
+        }
+
+        /* تنسيق العناوين (النصوص) لتبدأ الصناديق من نفس النقطة */
+        .results-container label {
+            display: inline-block;
+            width: 150px; /* عرض ثابت لكل الكلمات */
+            font-weight: bold;
+        }
+
         body {
             /* استبدل الرابط أدناه برابط الصورة التي اخترتها */
             background-image: url('vecteezy_restaurant-menu.jpg');
@@ -118,6 +132,7 @@
 
     <form>
         <table>
+            <caption>   قائمة الوجبات الخمس</caption>
             <tr>
                 <th>الرمز</th>
                 <th>العنوان</th>
@@ -131,7 +146,7 @@
                 <td>وجبة سمك مشوي</td>
                 <td>11000 ل.س</td>
                 <td><input type="checkbox" onclick="toggleDetails(1)"></td>
-                <td><input type="checkbox" name="meal1"></td>
+                <td><input type="checkbox" name="meal1" id="meal1"></td>
             </tr>
             <tr id="details-1" class="details">
                 <td colspan="5">
@@ -146,7 +161,7 @@
                 <td>شاورما دجاج</td>
                 <td>7000 ل.س</td>
                 <td><input type="checkbox" onclick="toggleDetails(2)"></td>
-                <td><input type="checkbox" name="meal2"></td>
+                <td><input type="checkbox" name="meal2" id="meal2"></td>
             </tr>
             <tr id="details-2" class="details"><td colspan="5"><img src="images/1.png" alt="شاورما"><b>المطبخ:</b> شامي</td></tr>
 
@@ -155,7 +170,7 @@
                 <td>برغر لحم ملكي</td>
                 <td>9500 ل.س</td>
                 <td><input type="checkbox" onclick="toggleDetails(3)"></td>
-                <td><input type="checkbox" name="meal3"></td>
+                <td><input type="checkbox" name="meal3" id="meal3"></td>
             </tr>
             <tr id="details-3" class="details"><td colspan="5"><img src="images/2.png" alt="برغر"><b>المطبخ:</b> أمريكي</td></tr>
             <!-- الوجبة 4 -->
@@ -164,7 +179,7 @@
                 <td>بيتزا مارغريتا</td>
                 <td>8500 ل.س</td>
                 <td><input type="checkbox" onclick="toggleDetails(4)"></td>
-                <td><input type="checkbox" name="meal4"></td>
+                <td><input type="checkbox" name="meal4" id="meal4"></td>
             </tr>
             <tr id="details-4" class="details">
                 <td colspan="5">
@@ -180,7 +195,7 @@
                 <td>كباب حلبي</td>
                 <td>15000 ل.س</td>
                 <td><input type="checkbox" onclick="toggleDetails(5)"></td>
-                <td><input type="checkbox" name="meal5"></td>
+                <td><input type="checkbox" name="meal5" id="meal5"></td>
             </tr>
             <tr id="details-5" class="details">
                 <td colspan="5">
@@ -211,7 +226,88 @@
         <input type="text" id="mobile" required><br><br>
 
         <input type="submit" value="إرسال البيانات">
+
     </form>
+    <div class="results-container" style="margin-top: 20px;">
+        <div>
+            <label>الوجبات المختارة:</label>
+            <textarea id="selectedMeals" readonly style="width: 30%; height:auto"></textarea>
+        </div>
+
+        <div>
+            <label>المجموع الإجمالي:</label>
+            <input type="text" id="total" readonly>
+        </div>
+
+        <div>
+            <label>الضريبة (10%):</label>
+            <input type="text" id="tax" readonly>
+        </div>
+
+        <div>
+            <label>المبلغ الصافي:</label>
+            <input type="text" id="net" readonly>
+        </div>
+    </div>
+
+
+
+    <script type="text/javascript">
+        function computeCost() {
+            var selectedList = []; // مصفوفة لتخزين أسماء الوجبات
+            var total = 0;
+
+            // فحص كل وجبة: إذا كانت مختارة، أضف سعرها للمجموع واسمها للقائمة
+            if (document.getElementById("meal1").checked) {
+                total += 11000;
+                selectedList.push("وجبة سمك مشوي");
+            }
+            if (document.getElementById("meal2").checked) {
+                total += 7000;
+                selectedList.push("شاورما دجاج");
+            }
+            if (document.getElementById("meal3").checked) {
+                total += 9500;
+                selectedList.push("برغر لحم ملكي");
+            }
+            if (document.getElementById("meal4").checked) {
+                total += 8500;
+                selectedList.push("بيتزا مارغريتا");
+            }
+            if (document.getElementById("meal5").checked) {
+                total += 15000;
+                selectedList.push("كباب حلبي");
+            }
+
+            // حساب الضريبة والصافي
+            var tax = total * 0.10;
+            var net = total + tax;
+
+            // عرض قائمة الوجبات المختارة مفصولة بفاصلة
+            document.getElementById("selectedMeals").value = selectedList.join(" ، ");
+
+            // عرض المبالغ المالية
+            document.getElementById("total").value = total + " ل.س";
+            document.getElementById("tax").value = tax + " ل.س";
+            document.getElementById("net").value = net + " ل.س";
+        }
+        function fillform() {
+            // التحقق من اختيار وجبة واحدة على الأقل
+            var checkboxes = document.querySelectorAll('input[type="checkbox"][id^="meal"]');
+            var isChecked = Array.from(checkboxes).some(cb => cb.checked);
+
+            if (!isChecked) {
+                alert("يرجى اختيار وجبة واحدة على الأقل!");
+                return;
+            }
+
+            computeCost(); // تشغيل الحسابات
+            document.getElementById("myForm").style.display = "block"; // إظهار نموذج البيانات
+        }
+
+
+    </script>
+
     <nav>
         <a href="index.html">Home</a> |
         <a href="AboutUs.html">About Us</a> |
@@ -221,6 +317,8 @@
 
     <a href="https://mohamad-alshamali.github.io/WebApplication1/"> <em>الموقع الالكتروني:الصحن الذهبي</em> </a>
     <div class="flower-line">🌸 🌹 🌸</div>
+
+
 
 </body>
 </html>
