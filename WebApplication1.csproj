@@ -68,8 +68,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AboutUs.html" />
-    <Content Include="background1.jpg" />
-    <Content Include="background2.jpg" />
+    <Content Include="images\background1.jpg" />
+    <Content Include="images\background2.jpg" />
     <Content Include="images\1.png" />
     <Content Include="images\2.png" />
     <Content Include="images\3.png" />
@@ -80,9 +80,9 @@
     <Content Include="Meals.html" />
     <Content Include="script.js" />
     <Content Include="style.css" />
-    <Content Include="vecteezy_restaurant-menu.jpg" />
+    <Content Include="images\vecteezy_restaurant-menu.jpg" />
     <Content Include="Web.config" />
-    <Content Include="svu.png" />
+    <Content Include="images\svu.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
